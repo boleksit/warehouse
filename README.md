@@ -1,15 +1,12 @@
 # warehouse
 Oprogramowanie dla magazynu zajmującego się spedycją paczek.
 
-1. Modele danych dla paczek, palet, klientów, adresów, firm kurierskich.
-2. Baza danych SQLite przy użyciu EF (code first)
-3. Obsługa wyjątków
-4. Autentykacja pracowników
-5. Autoryzacja
-6. Przyjmowanie dostaw
-7. Sortowanie przesyłek
+1. Dodawanie, edytowanie i usuwanie klientów
+2. Dodawanie, edytowanie i usuwanie adresów
+3. Dodawanie, edytowanie i usuwanie paczek
+4. Dodawanie, edytowanie i usuwanie palet
+5. Dodawanie, zarządzanie pracownikami
+6. Uprawnienia pracowników (magazynier, spedytor)
+7. Przyjmowanie dostaw
 8. Wysyłka przesyłek
-9. Kontrolowanie statusu przesyłki
-10. Rest API do kontroli aplikacji
-11. Prosty interfejs przy użyciu WPF
-12. Wersja produkcyjna (docker?)
+9. Kontrola stanu przesyłki
