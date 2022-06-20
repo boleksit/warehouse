@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using warehouse.Database;
+﻿using Microsoft.AspNetCore.Mvc;
+using warehouse.Creation;
 using warehouse.Services;
 
 namespace warehouse.Controllers;
@@ -19,5 +18,20 @@ public class ClientController:ControllerBase
     public ActionResult<IEnumerable<Client>> GetAll()
     {
         return Ok(_clientService.GetAll());
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Client> GetById([FromRoute] int id)
+    {
+        var result = _clientService.GetById(id);
+        if (result is null) return NotFound();
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public ActionResult CreateClient([FromBody] CreateClient input)
+    {
+        var result = _clientService.CreateClient(input);
+        return Created(result, null);
     }
 }
