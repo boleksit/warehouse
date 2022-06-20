@@ -5,7 +5,7 @@ namespace warehouse;
 //immutable
 public sealed class Box :IFormattable, IEquatable<Box>, IEnumerable<double>
 {
-    public Adress ShippingAdress { get; set; }
+    public Address ShippingAdress { get; set; }
     public Client Owner { get; set; }
     private readonly double _a;
     private readonly double _b;

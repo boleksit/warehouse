@@ -1,5 +1,6 @@
-using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using warehouse.Database;
+using warehouse.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddControllers();
 builder.Services.AddScoped<Seeder>();
+builder.Services.AddTransient<ClientService>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
