@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using warehouse.Creation;
+using warehouse.Create;
 using warehouse.Entities;
 
 namespace warehouse;

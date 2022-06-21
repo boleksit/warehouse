@@ -1,13 +1,23 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using warehouse.Creation;
+using warehouse.Create;
 using warehouse.Database;
 using warehouse.Entities;
+using warehouse.Modify;
 
 namespace warehouse.Services;
 
-public class ClientService
+public interface IClientService
+{
+    IEnumerable<Client> GetAll();
+    Client? GetById(int id);
+    string CreateClient(CreateClient input);
+    bool Delete(int id);
+    bool Update(int id, ModifyClient input);
+}
+
+public class ClientService : IClientService
 {
     private readonly AppDbContext _dbContext;
     private readonly IMapper _mapper;
@@ -46,5 +56,31 @@ public class ClientService
         _dbContext.SaveChanges();
 
         return $"/api/client/{client.Id}";
+    }
+
+    public bool Delete(int id)
+    {
+        var client = _dbContext
+            .Clients
+            .FirstOrDefault(c => c.Id == id);
+
+        if (client is null) return false;
+        _dbContext.Clients.Remove(client);
+        _dbContext.SaveChanges(); 
+        return true;
+    }
+
+    public bool Update(int id, ModifyClient input)
+    {
+        var client = _dbContext
+            .Clients
+            .FirstOrDefault(c => c.Id == id);
+
+        if (client is null) return false;
+        client.Email = input.Email;
+        client.Phone = input.Phone;
+        client.Name = input.Name;
+        _dbContext.SaveChanges(); 
+        return true;
     }
 }

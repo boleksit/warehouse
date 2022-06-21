@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using warehouse.Creation;
+using warehouse.Create;
+using warehouse.Modify;
 using warehouse.Services;
 
 namespace warehouse.Controllers;
@@ -7,9 +8,9 @@ namespace warehouse.Controllers;
 [Route("/api/client")]
 public class ClientController:ControllerBase
 {
-    private readonly ClientService _clientService;
+    private readonly IClientService _clientService;
 
-    public ClientController(ClientService clientService)
+    public ClientController(IClientService clientService)
     {
         _clientService = clientService;
     }
@@ -31,7 +32,30 @@ public class ClientController:ControllerBase
     [HttpPost]
     public ActionResult CreateClient([FromBody] CreateClient input)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         var result = _clientService.CreateClient(input);
         return Created(result, null);
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult DeleteClient([FromRoute] int id)
+    {
+        var isDeleted = _clientService.Delete(id);
+        if (isDeleted) return NoContent();
+        return NotFound();
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult Update([FromRoute] int id, [FromBody] ModifyClient input)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        var isUpdated = _clientService.Update(id, input );
+        return Ok();
     }
 }

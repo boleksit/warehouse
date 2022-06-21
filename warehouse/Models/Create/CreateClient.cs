@@ -1,4 +1,4 @@
-﻿namespace warehouse.Creation;
+﻿namespace warehouse.Create;
 
 public class CreateClient
 {
