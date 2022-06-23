@@ -10,9 +10,30 @@ public class AppDbContext:DbContext
     
     public DbSet<AddressEntity> Addresses { get; set; }
     public DbSet<ClientEntity> Clients { get; set; }
+    public DbSet<BoxEntity> Boxes { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
       optionsBuilder.UseSqlServer(_connectionString);
+  }
+
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+      modelBuilder.Entity<BoxEntity>()
+          .Property(b => b.Length)
+          .IsRequired()
+          .HasMaxLength(100);
+      modelBuilder.Entity<BoxEntity>()
+          .Property(b => b.Width)
+          .IsRequired()
+          .HasMaxLength(100);
+      modelBuilder.Entity<BoxEntity>()
+          .Property(b => b.Height)
+          .IsRequired()
+          .HasMaxLength(100);
+      // modelBuilder.Entity<BoxEntity>()
+      //     .Property(b => b.ClientId)
+      //     .IsRequired();
+
   }
 }

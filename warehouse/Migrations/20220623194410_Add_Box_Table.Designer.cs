@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using warehouse.Database;
 
@@ -11,9 +12,10 @@ using warehouse.Database;
 namespace warehouse.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220623194410_Add_Box_Table")]
+    partial class Add_Box_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,7 @@ namespace warehouse.Migrations
 
                     b.HasIndex("ClientEntityId");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("warehouse.Entities.BoxEntity", b =>
@@ -103,7 +105,7 @@ namespace warehouse.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Boxes", (string)null);
+                    b.ToTable("Boxes");
                 });
 
             modelBuilder.Entity("warehouse.Entities.ClientEntity", b =>
@@ -128,7 +130,7 @@ namespace warehouse.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clients", (string)null);
+                    b.ToTable("Clients");
                 });
 
             modelBuilder.Entity("warehouse.AddressEntity", b =>
