@@ -5,15 +5,11 @@ namespace warehouse;
 public class Box
 {
     public int Id { get; set; }
-    [Required]
-    [Range(1,100)]
     public int Length { get; set; }
-    [Required]
-    [Range(1,100)]
     public int Width { get; set; }
-    [Required]
-    [Range(1,100)]
     public int Height { get; set; }
-    public int ClientId { get; set; }
-    public int AddressId { get; set; }
+    public Status Status { get; set; }
+    public Client Client { get; set; }
+    public Address Address { get; set; }
+    public Pallet Pallet { get; set; }
 }
