@@ -16,6 +16,7 @@ public class AddressEntity
     public string AddressType { get; set; }
     
     public int ClientId { get; set; }
+    public virtual List<BoxEntity> Boxes { get; set; } 
     
     public virtual ClientEntity Client { get; set; }
     

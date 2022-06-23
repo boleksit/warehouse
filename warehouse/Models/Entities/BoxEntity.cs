@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace warehouse;
+namespace warehouse.Entities;
 
-public class Box
+public class BoxEntity
 {
+    [Required]
     public int Id { get; set; }
     [Required]
     [Range(1,100)]
@@ -14,6 +15,10 @@ public class Box
     [Required]
     [Range(1,100)]
     public int Height { get; set; }
+    
     public int ClientId { get; set; }
     public int AddressId { get; set; }
+    
+    public virtual AddressEntity Address { get; set; }
+    public virtual ClientEntity Client { get; set; }
 }
