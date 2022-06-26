@@ -12,21 +12,30 @@ public class Seeder
     }
     public  void Seed()
     {
+        var changes = false;
         if (!_dbContext.Database.CanConnect()) return;
-        if (_dbContext.Clients.Any()) return;
-        _dbContext.Clients.AddRange(GetClients());
-        _dbContext.SaveChanges();
+        if (!_dbContext.Status.Any())
+        {
+            _dbContext.Status.AddRange(GetStatus());
+            _dbContext.SaveChanges();
+        }
+        if (!_dbContext.Clients.Any())
+        {
+            _dbContext.Clients.AddRange(GetClients());
+            _dbContext.SaveChanges();
+        }
+        
     }
 
     private  IEnumerable<ClientEntity> GetClients()
     {
         var clients = new List<ClientEntity>()
         {
-            new ClientEntity()
+            new()
             {
                 Addresses = new List<AddressEntity>()
                 {
-                    new AddressEntity()
+                    new()
                     {
                         AddressType = "shipping",
                         Name = "Janusz Kowalski",
@@ -36,7 +45,7 @@ public class Seeder
                         Street = "Mariacka",
                         ApartmentNo = "5/4"
                     },
-                    new AddressEntity()
+                    new()
                     {
                         AddressType = "company",
                         Name = "TestExPol",
@@ -49,9 +58,35 @@ public class Seeder
                 },
                 Email = "biuro@client.pl",
                 Name = "Janusz Kowalski",
-                Phone = "888888888"
+                Phone = "888888888",
+               
+                Boxes = new List<BoxEntity>()
+                {
+                    new()
+                    {
+                        ClientId = 1,
+                        Height = 60,
+                        Width = 40,
+                        Length = 50,
+                        Weight = 31,
+                        StatusId = 1
+                    }
+                }
             }
         };
         return clients;
     }
+    private IEnumerable<StatusEntity> GetStatus()
+    {
+        var statuses = new List<StatusEntity>()
+        {
+            new("prepared"),
+            new("in transit"),
+            new("in delivery"),
+            new("delivered")
+        };
+        return statuses;
+    }
+
+    
 }
