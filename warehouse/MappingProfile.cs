@@ -18,6 +18,9 @@ public class MappingProfile : Profile
         CreateMap<CreateAddress, AddressEntity>();
         CreateMap<ModifyAddress, AddressEntity>();
         CreateMap<Address, AddressEntity>();
+        CreateMap<BoxEntity, Box>();
+        CreateMap<CreateBox, BoxEntity>();
+        CreateMap<StatusEntity, Status>();
 
     }
 }
