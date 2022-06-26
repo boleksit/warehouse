@@ -68,7 +68,7 @@ public class AddressService : IAddressService
         if (client == null) return false;
         var address = _dbContext.Addresses.FirstOrDefault(address => address.Id == addressId);
         if (address == null||address.ClientId!= clientId) return false;
-        _dbContext.Remove(address.ClientId);
+        _dbContext.Remove(address.Id);
         _dbContext.SaveChanges();
         return true;
     }
