@@ -9,4 +9,5 @@ public class ClientEntity
     public string Phone { get; set; }
 
     public virtual List<AddressEntity> Addresses { get; set; }
+    public virtual List<BoxEntity> Boxes { get; set; }
 }
