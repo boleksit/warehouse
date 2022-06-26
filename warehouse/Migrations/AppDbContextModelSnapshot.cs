@@ -76,13 +76,10 @@ namespace warehouse.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AddressEntityId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<int>("Height")
@@ -91,26 +88,27 @@ namespace warehouse.Migrations
                     b.Property<int>("Length")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PalletEntityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PalletId")
+                    b.Property<int?>("PalletId")
                         .HasColumnType("int");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
+                    b.Property<double>("Weight")
+                        .HasColumnType("float");
 
                     b.Property<int>("Width")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressEntityId");
+                    b.HasIndex("AddressId");
 
-                    b.HasIndex("PalletEntityId");
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("PalletId");
+
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Boxes");
                 });
@@ -148,16 +146,20 @@ namespace warehouse.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClientId")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Palettes");
                 });
@@ -192,13 +194,46 @@ namespace warehouse.Migrations
 
             modelBuilder.Entity("warehouse.Entities.BoxEntity", b =>
                 {
-                    b.HasOne("warehouse.AddressEntity", null)
+                    b.HasOne("warehouse.AddressEntity", "Address")
                         .WithMany("Boxes")
-                        .HasForeignKey("AddressEntityId");
+                        .HasForeignKey("AddressId");
 
-                    b.HasOne("warehouse.Entities.PalletEntity", null)
+                    b.HasOne("warehouse.Entities.ClientEntity", "Client")
                         .WithMany("Boxes")
-                        .HasForeignKey("PalletEntityId");
+                        .HasForeignKey("ClientId");
+
+                    b.HasOne("warehouse.Entities.PalletEntity", "Pallet")
+                        .WithMany("Boxes")
+                        .HasForeignKey("PalletId");
+
+                    b.HasOne("warehouse.Entities.StatusEntity", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Pallet");
+
+                    b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("warehouse.Entities.PalletEntity", b =>
+                {
+                    b.HasOne("warehouse.AddressEntity", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId");
+
+                    b.HasOne("warehouse.Entities.ClientEntity", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId");
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("warehouse.AddressEntity", b =>
@@ -209,6 +244,8 @@ namespace warehouse.Migrations
             modelBuilder.Entity("warehouse.Entities.ClientEntity", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Boxes");
                 });
 
             modelBuilder.Entity("warehouse.Entities.PalletEntity", b =>

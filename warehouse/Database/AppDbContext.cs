@@ -21,6 +21,7 @@ public class AppDbContext:DbContext
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+      
       modelBuilder.Entity<BoxEntity>()
           .Property(b => b.Length)
           .IsRequired();
