@@ -11,7 +11,7 @@ public class AppDbContext:DbContext
     public DbSet<AddressEntity> Addresses { get; set; }
     public DbSet<ClientEntity> Clients { get; set; }
     public DbSet<BoxEntity> Boxes { get; set; }
-    public DbSet<PalletEntity> Palettes { get; set; }
+    public DbSet<PalletEntity> Pallets { get; set; }
     public DbSet<StatusEntity> Status { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

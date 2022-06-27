@@ -161,7 +161,9 @@ namespace warehouse.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Palettes");
+                    b.HasIndex("StatusId");
+
+                    b.ToTable("Pallets");
                 });
 
             modelBuilder.Entity("warehouse.Entities.StatusEntity", b =>
@@ -231,9 +233,17 @@ namespace warehouse.Migrations
                         .WithMany()
                         .HasForeignKey("ClientId");
 
+                    b.HasOne("warehouse.Entities.StatusEntity", "Status")
+                        .WithMany()
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
 
                     b.Navigation("Client");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("warehouse.AddressEntity", b =>

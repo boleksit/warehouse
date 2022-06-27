@@ -21,6 +21,7 @@ public class MappingProfile : Profile
         CreateMap<BoxEntity, Box>();
         CreateMap<CreateBox, BoxEntity>();
         CreateMap<StatusEntity, Status>();
+        CreateMap<PalletEntity, Pallet>();
 
     }
 }
