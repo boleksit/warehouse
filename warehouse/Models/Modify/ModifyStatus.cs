@@ -1,6 +1,6 @@
 ﻿namespace warehouse.Modify;
 
-public class ModifyBox
+public class ModifyStatus
 {
     public string Status { get; set; }
 }
