@@ -9,4 +9,5 @@ public class PalletEntity
     public virtual List<BoxEntity> Boxes { get; set; } 
     public virtual AddressEntity Address { get; set; }
     public virtual ClientEntity Client { get; set; }
+    public virtual StatusEntity Status { get; set; }
 }
