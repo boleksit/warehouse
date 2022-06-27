@@ -51,7 +51,7 @@ public class BoxController:ControllerBase
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPut("{packageId}")]
-    public ActionResult ChangeStatus([FromRoute] int packageId, [FromBody] ModifyBox input)
+    public ActionResult ChangeStatus([FromRoute] int packageId, [FromBody] ModifyStatus input)
     {
         if (!ModelState.IsValid)
         {
