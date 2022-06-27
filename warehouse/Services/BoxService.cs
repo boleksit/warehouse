@@ -19,11 +19,13 @@ public class BoxService : IBoxService
 {
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
+    private readonly IMessageProducer _messagePublisher;
 
-    public BoxService(AppDbContext context, IMapper mapper)
+    public BoxService(AppDbContext context, IMapper mapper, IMessageProducer messagePublisher)
     {
         _context = context;
         _mapper = mapper;
+        _messagePublisher = messagePublisher;
     }
 
     public string? Create(int clientId, CreateBox input)
@@ -58,7 +60,7 @@ public class BoxService : IBoxService
             .Include(c => c.Client)
             .Include(c => c.Address)
             .FirstOrDefault(x => x.Id == packageId);
-            
+        _messagePublisher.SendMessage(box);
         return _mapper.Map<Box>(box);
     }
 

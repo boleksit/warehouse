@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace warehouse.Entities;
 
@@ -17,7 +18,10 @@ public class BoxEntity
     public int StatusId { get; set; }
 
     public virtual StatusEntity Status { get; set; }
+    [JsonIgnore] 
     public virtual AddressEntity Address { get; set; }
+    [JsonIgnore] 
     public virtual ClientEntity Client { get; set; }
+    [JsonIgnore] 
     public virtual PalletEntity Pallet { get; set; }
 }
