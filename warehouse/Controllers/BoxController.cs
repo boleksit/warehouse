@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using warehouse.Create;
 using warehouse.Modify;
 using warehouse.Services;
@@ -24,6 +25,7 @@ public class BoxController:ControllerBase
         var result = _boxService.Create(clientId, input);
         return result is null ? NotFound() : Created(result, null);
     }
+    [Authorize]
     [HttpGet]
     public ActionResult<List<Box>> GetAll()
     {

@@ -20,4 +20,11 @@ public class AccountController:ControllerBase
         _accountService.RegisterUser(input);
         return Ok();
     }
+
+    [HttpPost("login")]
+    public ActionResult Login([FromBody] LoginUser input)
+    {
+        var token = _accountService.GenerateJwt(input);
+        return Ok(token);
+    }
 }

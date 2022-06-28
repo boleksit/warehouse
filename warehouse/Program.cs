@@ -1,13 +1,41 @@
 using System.Reflection;
+using System.Text;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
+using warehouse.Create;
 using warehouse.Database;
 using warehouse.Entities;
+using warehouse.Properties;
 using warehouse.Services;
+using warehouse.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
+var authenticationSettings = new AuthenticationSettings();
+builder.Configuration.GetSection("Authentication").Bind(authenticationSettings);
+builder.Services.AddSingleton(authenticationSettings);
 
 // Add services to the container.
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "Bearer";
+    options.DefaultScheme = "Bearer";
+    options.DefaultChallengeScheme = "Bearer";
+}).AddJwtBearer(cfg =>
+{
+    cfg.RequireHttpsMetadata = false;
+    cfg.SaveToken = true;
+    cfg.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = authenticationSettings.JwtIssuer,
+        ValidAudience = authenticationSettings.JwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+    };
+});
 builder.Services.AddDbContext<AppDbContext>();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddScoped<Seeder>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
@@ -15,6 +43,8 @@ builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IPalletService, PalletService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddSingleton<IMessageProducer, RabbitMQProducer>();
+builder.Services.AddScoped<IPasswordHasher<UserEntity>, PasswordHasher<UserEntity>>();
+builder.Services.AddScoped<IValidator<CreateUser>, CreateUserValidator>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,6 +63,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
