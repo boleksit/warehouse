@@ -24,7 +24,32 @@ public class Seeder
             _dbContext.Clients.AddRange(GetClients());
             _dbContext.SaveChanges();
         }
+        if (!_dbContext.Roles.Any())
+        {
+            _dbContext.Roles.AddRange(GetRoles());
+            _dbContext.SaveChanges();
+        }
         
+    }
+
+    private IEnumerable<RoleEntity> GetRoles()
+    {
+        var roles = new List<RoleEntity>()
+        {
+            new RoleEntity
+            {
+                Name = "Admin"
+            },
+            new RoleEntity
+            {
+                Name = "Employee"
+            },
+            new RoleEntity
+            {
+                Name = "User"
+            }
+        };
+        return roles;
     }
 
     private  IEnumerable<ClientEntity> GetClients()
