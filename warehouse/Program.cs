@@ -13,6 +13,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IPalletService, PalletService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddSingleton<IMessageProducer, RabbitMQProducer>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

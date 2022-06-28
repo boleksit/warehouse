@@ -13,6 +13,10 @@ public class AppDbContext:DbContext
     public DbSet<BoxEntity> Boxes { get; set; }
     public DbSet<PalletEntity> Pallets { get; set; }
     public DbSet<StatusEntity> Status { get; set; }
+    public DbSet<UserEntity> Users { get; set; }
+    public DbSet<RoleEntity> Roles { get; set; }
+    
+    
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
@@ -33,6 +37,15 @@ public class AppDbContext:DbContext
           .IsRequired();
       modelBuilder.Entity<BoxEntity>()
           .Property(b => b.Weight)
+          .IsRequired(); 
+      modelBuilder.Entity<UserEntity>()
+          .Property(b => b.Email)
+          .IsRequired();
+      modelBuilder.Entity<UserEntity>()
+          .Property(b => b.Name)
+          .IsRequired();
+      modelBuilder.Entity<RoleEntity>()
+          .Property(b => b.Name)
           .IsRequired();
   }
 }
