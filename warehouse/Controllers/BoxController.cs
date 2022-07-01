@@ -6,6 +6,7 @@ using warehouse.Services;
 
 namespace warehouse.Controllers;
 [Route("api/package")]
+[Authorize]
 public class BoxController:ControllerBase
 {
     private readonly IBoxService _boxService;
@@ -53,6 +54,7 @@ public class BoxController:ControllerBase
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPut("{packageId}")]
+    [Authorize(Roles = "Admin, Employee")]
     public ActionResult ChangeStatus([FromRoute] int packageId, [FromBody] ModifyStatus input)
     {
         if (!ModelState.IsValid)

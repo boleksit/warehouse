@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using warehouse.Create;
 using warehouse.Modify;
 using warehouse.Services;
 
 namespace warehouse.Controllers;
 [Route("api/pallet")]
+[Authorize]
 public class PalletController:ControllerBase
 {
     private readonly IPalletService _palletService;
@@ -52,6 +54,7 @@ public class PalletController:ControllerBase
     /// <param name="input"></param>
     /// <returns></returns>
     [HttpPut("{palletId}")]
+    [Authorize(Roles = "Admin, Employee")]
     public ActionResult ChangeStatus([FromRoute] int palletId, [FromBody] ModifyStatus input)
     {
         if (!ModelState.IsValid)

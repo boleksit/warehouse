@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using warehouse.Create;
 using warehouse.Modify;
 using warehouse.Services;
@@ -6,6 +7,7 @@ using warehouse.Services;
 namespace warehouse.Controllers;
 
 [Route("api/client/{clientId}/address")]
+[Authorize]
 public class AddressController:ControllerBase
 {
     private readonly IAddressService _service;

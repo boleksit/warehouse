@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using warehouse.Create;
 using warehouse.Modify;
 using warehouse.Services;
@@ -6,6 +7,7 @@ using warehouse.Services;
 namespace warehouse.Controllers;
 
 [Route("/api/client")]
+[Authorize]
 public class ClientController:ControllerBase
 {
     private readonly IClientService _clientService;
@@ -14,8 +16,9 @@ public class ClientController:ControllerBase
     {
         _clientService = clientService;
     }
-
+    
     [HttpGet]
+    [Authorize(Roles = "Admin, Employee")]
     public ActionResult<IEnumerable<Client>> GetAll()
     {
         return Ok(_clientService.GetAll());
@@ -32,6 +35,10 @@ public class ClientController:ControllerBase
     [HttpPost]
     public ActionResult CreateClient([FromBody] CreateClient input)
     {
+        if (HttpContext.User.IsInRole("User"))
+        {
+            return Forbid();
+        }
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
@@ -41,6 +48,7 @@ public class ClientController:ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin, Employee")]
     public ActionResult DeleteClient([FromRoute] int id)
     {
         var isDeleted = _clientService.Delete(id);
