@@ -33,9 +33,9 @@ public class BoxController:ControllerBase
         var result = _boxService.GetAll();
         return result is null ? NotFound() : Ok(result);
     }
-    
+    [AllowAnonymous]
     [HttpGet("{packageId}")]
-    public ActionResult<Box> GetByAddressId([FromRoute] int packageId)
+    public ActionResult<Box> GetById([FromRoute] int packageId)
     {
         var result = _boxService.GetById( packageId);
         return result is null ? NotFound() : Ok(result);

@@ -33,7 +33,7 @@ public class PalletController:ControllerBase
         var result = _palletService.GetAll();
         return result is null ? NotFound() : Ok(result);
     }
-    
+    [AllowAnonymous]
     [HttpGet("{palletId}")]
     public ActionResult<Box> GetById([FromRoute] int palletId)
     {
