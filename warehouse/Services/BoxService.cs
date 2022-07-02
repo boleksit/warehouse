@@ -60,7 +60,6 @@ public class BoxService : IBoxService
             .Include(c => c.Client)
             .Include(c => c.Address)
             .FirstOrDefault(x => x.Id == packageId);
-        _messagePublisher.SendMessage(box);
         return _mapper.Map<Box>(box);
     }
 

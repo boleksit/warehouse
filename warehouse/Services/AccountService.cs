@@ -35,15 +35,6 @@ public class AccountService : IAccountService
     public void RegisterUser(CreateUser input)
     {
         _messagePublisher.SendMessage(input);
-        // var user = new UserEntity()
-        // {
-        //     Email = input.Email,
-        //     Name = input.Name,
-        //     RoleId = input.RoleId
-        // };
-        // user.PasswordHash=_passwordHasher.HashPassword(user, input.Password);
-        // _context.Users.Add(user);
-        // _context.SaveChanges();
     }
 
     public string GenerateJwt(LoginUser input)

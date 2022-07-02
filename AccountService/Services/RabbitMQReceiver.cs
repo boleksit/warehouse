@@ -41,36 +41,24 @@ public class RabbitMQReceiver : BackgroundService
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        // when the service is stopping
-        // dispose these references
-        // to prevent leaks
         if (stoppingToken.IsCancellationRequested)
         {
             _channel.Dispose();
             _connection.Dispose();
             return Task.CompletedTask;
         }
-
-        // create a consumer that listens on the channel (queue)
+        
         var consumer = new EventingBasicConsumer(_channel);
-
-        // handle the Received event on the consumer
-        // this is triggered whenever a new message
-        // is added to the queue by the producer
+        
         consumer.Received += (model, ea) =>
         {
-            // read the message bytes
             var body = ea.Body.ToArray();
-            
-            // convert back to the original string
             var message = Encoding.UTF8.GetString(body);
-            
             Console.WriteLine(" [x] Received {0}", message);
 
             Task.Run(() =>
             {
                 var user = JsonConvert.DeserializeObject<CreateUser>(message);
-                
                 using (var scope = _sp.CreateScope())
                 {
                     var db = scope.ServiceProvider.GetRequiredService<IAccountService>();
