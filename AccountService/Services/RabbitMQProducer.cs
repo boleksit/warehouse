@@ -1,9 +1,8 @@
 ﻿using System.Text;
-using System.Threading.Channels;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 
-namespace warehouse.Services;
+namespace AccountService.Services;
 
 public interface IMessageProducer
 {
@@ -19,15 +18,18 @@ public class RabbitMQProducer : IMessageProducer
         var connection = factory.CreateConnection();
         channel=connection.CreateModel();
 
-        channel.QueueDeclare(queue: "test", durable: false, exclusive: false, autoDelete: false, arguments: null);
-        Console.WriteLine("RabbitMQProducer connected");
+        channel.QueueDeclare(
+            queue: "test", 
+            durable: false, 
+            exclusive: false, 
+            autoDelete: false, 
+            arguments: null);
     }
     public void SendMessage<T>(T message)
     {
         var json = JsonConvert.SerializeObject(message);
         var body = Encoding.UTF8.GetBytes(json);
 
-        channel.BasicPublish(exchange: "", routingKey: "test", body: body);
-        Console.WriteLine("RabbitMQProducer sent message: " + body);
+        channel.BasicPublish(exchange: "", routingKey: "orders", body: body);
     }
 }

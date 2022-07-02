@@ -1,15 +1,16 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using AccountService.Database;
+using AccountService.Models;
+using AccountService.Models.Create;
+using AccountService.Models.Entities;
+using AccountService.Properties;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using warehouse.Create;
-using warehouse.Database;
-using warehouse.Entities;
-using warehouse.Properties;
 
-namespace warehouse.Services;
+namespace AccountService.Services;
 
 public interface IAccountService
 {
@@ -22,28 +23,29 @@ public class AccountService : IAccountService
     private readonly AppDbContext _context;
     private readonly IPasswordHasher<UserEntity> _passwordHasher;
     private readonly AuthenticationSettings _authenticationSettings;
-    private readonly IMessageProducer _messagePublisher;
+    private readonly IMessageProducer _messageProducer;
 
-    public AccountService(AppDbContext context, IPasswordHasher<UserEntity> passwordHasher, AuthenticationSettings authenticationSettings, IMessageProducer messagePublisher)
+    public AccountService(IPasswordHasher<UserEntity> passwordHasher,
+        AuthenticationSettings authenticationSettings,
+        IMessageProducer messageProducer)
     {
-        _context = context;
+        _context = new AppDbContext();
         _passwordHasher = passwordHasher;
         _authenticationSettings = authenticationSettings;
-        _messagePublisher = messagePublisher;
+        _messageProducer = messageProducer;
     }
 
     public void RegisterUser(CreateUser input)
     {
-        _messagePublisher.SendMessage(input);
-        // var user = new UserEntity()
-        // {
-        //     Email = input.Email,
-        //     Name = input.Name,
-        //     RoleId = input.RoleId
-        // };
-        // user.PasswordHash=_passwordHasher.HashPassword(user, input.Password);
-        // _context.Users.Add(user);
-        // _context.SaveChanges();
+        var user = new UserEntity()
+        {
+            Email = input.Email,
+            Name = input.Name,
+            RoleId = input.RoleId
+        };
+        user.PasswordHash=_passwordHasher.HashPassword(user, input.Password);
+        _context.Users.Add(user);
+        _context.SaveChanges();
     }
 
     public string GenerateJwt(LoginUser input)

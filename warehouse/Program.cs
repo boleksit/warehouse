@@ -42,7 +42,7 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<IBoxService, BoxService>();
 builder.Services.AddScoped<IPalletService, PalletService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddSingleton<IMessageProducer, RabbitMQProducer>();
+builder.Services.AddScoped<IMessageProducer, RabbitMQProducer>();
 builder.Services.AddScoped<IPasswordHasher<UserEntity>, PasswordHasher<UserEntity>>();
 builder.Services.AddScoped<IValidator<CreateUser>, CreateUserValidator>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
