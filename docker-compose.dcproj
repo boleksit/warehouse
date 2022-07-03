@@ -15,4 +15,9 @@
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="docker-composeblal.yml" />
+    <Content Include="launchSettings.json" />
+    <Content Include="README.md" />
+  </ItemGroup>
 </Project>
