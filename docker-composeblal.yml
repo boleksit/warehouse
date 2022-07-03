@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+    sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        container_name: "sqlserver"
+        environment:
+          SA_PASSWORD: "PassToSA!"
+          ACCEPT_EULA: "Y"
+        ports:
+          - 1433:1433
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: "rabbitmq"
+        ports:
+          - 5672:5672
+          - 15672:15672
+        networks:
+            - rabbitmq
+    accountservice:
+        image: ${DOCKER_REGISTRY-}accountservice
+        build:
+            context: .
+            dockerfile: AccountService/Dockerfile
+
+
+    warehouse:
+        image: ${DOCKER_REGISTRY-}warehouse
+        build:
+            context: .
+            dockerfile: warehouse/Dockerfile
+        ports:
+            - 5240:5420
+            - 7240:7420
+
+networks:
+    rabbitmq:
+        driver: bridge

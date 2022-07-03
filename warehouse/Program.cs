@@ -2,8 +2,11 @@ using System.Reflection;
 using System.Text;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using warehouse.Create;
 using warehouse.Database;
@@ -29,9 +32,9 @@ builder.Services.AddAuthentication(options =>
     cfg.SaveToken = true;
     cfg.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidIssuer = authenticationSettings.JwtIssuer,
-        ValidAudience = authenticationSettings.JwtIssuer,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey))
+        ValidIssuer = "http://rest.test.com",
+        ValidAudience = "http://rest.test.com",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PK_dont_sHaRe_longer_kEy_test"))
     };
 });
 builder.Services.AddDbContext<AppDbContext>();
@@ -57,11 +60,9 @@ var app = builder.Build();
 var scope = app.Services.CreateScope();
 var seeder = scope.ServiceProvider.GetRequiredService<Seeder>();
 seeder.Seed();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
+
 
 app.UseAuthentication();
 app.UseHttpsRedirection();

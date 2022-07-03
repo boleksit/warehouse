@@ -58,12 +58,12 @@ public class AccountService : IAccountService
             new Claim(ClaimTypes.Role, user.Role.Name.ToString()),
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("PK_dont_sHaRe_longer_kEy_test"));
         var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
+        var expires = DateTime.Now.AddDays(15);
 
-        var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer,
-            _authenticationSettings.JwtIssuer,
+        var token = new JwtSecurityToken("http://rest.test.com",
+            "http://rest.test.com",
             claims,
             expires: expires,
             signingCredentials: cred);

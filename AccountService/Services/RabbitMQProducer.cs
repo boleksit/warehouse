@@ -14,7 +14,7 @@ public class RabbitMQProducer : IMessageProducer
     private IModel? channel;
     public RabbitMQProducer()
     {
-        var factory = new ConnectionFactory{HostName = "localhost", Port = 49154, UserName = "test", Password = "test"};
+        var factory = new ConnectionFactory{Uri = new Uri("amqp://guest:guest@host.docker.internal:5672/") };
         var connection = factory.CreateConnection();
         channel=connection.CreateModel();
 

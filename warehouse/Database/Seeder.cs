@@ -1,4 +1,5 @@
-﻿using warehouse.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using warehouse.Entities;
 
 namespace warehouse.Database;
 
@@ -12,7 +13,8 @@ public class Seeder
     }
     public  void Seed()
     {
-        var changes = false;
+        System.Console.WriteLine("Appling migrations..");
+        _dbContext.Database.Migrate();
         if (!_dbContext.Database.CanConnect()) return;
         if (!_dbContext.Status.Any())
         {
