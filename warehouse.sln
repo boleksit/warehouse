@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountService", "AccountSe
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A95C812B-FB79-4DEA-AB9F-3B84CF69FD7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF_App", "WPF_App\WPF_App.csproj", "{F1C96BBE-DF69-4AA9-8503-433A890129F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A95C812B-FB79-4DEA-AB9F-3B84CF69FD7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A95C812B-FB79-4DEA-AB9F-3B84CF69FD7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A95C812B-FB79-4DEA-AB9F-3B84CF69FD7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C96BBE-DF69-4AA9-8503-433A890129F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C96BBE-DF69-4AA9-8503-433A890129F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C96BBE-DF69-4AA9-8503-433A890129F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C96BBE-DF69-4AA9-8503-433A890129F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

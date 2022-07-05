@@ -1,0 +1,32 @@
+﻿<Page x:Class="WPF_App.Package"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:WPF_App"
+      mc:Ignorable="d"
+      Title="package" Height="450" Width="700">
+    
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="2" Grid.Row="1" Content="Login" FontSize="25" Margin="10 10" x:Name="btnLogin" Click="btnLoginOnClick"/>
+        <Label Grid.Row="2" Grid.Column="1" FontSize="25" Content="ID paczki:" 
+               VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+               VerticalContentAlignment="Center"/>
+        <TextBox Grid.Column="2" Grid.Row="2" FontSize="25" Width="250" Margin="10 10" 
+                 VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                 VerticalContentAlignment="Center" x:Name="packageId"/>
+        <Button Grid.Column="3" Grid.Row="2"  HorizontalAlignment="Center" Margin="10 10" 
+                Click="ButtonGetPackage_Click" Content="Sprawdź status" Width="200" FontSize="25" /> 
+    </Grid>
+</Page>
