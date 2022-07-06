@@ -1,7 +1,10 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using WPF_App.Models;
 
 namespace WPF_App;
 
@@ -13,10 +16,19 @@ public static class WebApi
     {
         string result;
         using HttpClient client = new HttpClient();
-        var response = await client.GetAsync($"{baseUrl}/packages/{id}");
+        var response = await client.GetAsync($"{baseUrl}/package/{id}");
 
         result = await response.Content.ReadAsStringAsync();
         return result;
+    }
+
+    public static async Task<List<Box>> GetAllPackages()
+    {
+        using HttpClient client = new HttpClient();
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Globals.LoggedInUserToken);
+        var response = await client.GetAsync($"{baseUrl}/package");
+        var result = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<List<Box>>(result); 
     }
 
     public static async Task<string?> AuthenticateUser(string email, string password)
@@ -32,8 +44,12 @@ public static class WebApi
 
         using HttpClient client = new HttpClient();
         var response = await client.PostAsync(endpoint, httpContent);
-        if(response.StatusCode==HttpStatusCode.OK)
-            return await response.Content.ReadAsStringAsync();
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            var result =await response.Content.ReadAsStringAsync();
+            return result;
+        }
+        
         return null;
     }
 

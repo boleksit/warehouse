@@ -20,11 +20,6 @@ public partial class RegisterPage : Page
 
 
             var created = await WebApi.RegisterUser(email, password, confirmPassword, name);
-            // if (created == false)
-            // {
-            //     MessageBox.Show("Username already exists");
-            //     return;
-            // }
 
             Globals.LoggedInUserToken = await WebApi.AuthenticateUser(email, password);
             MessageBox.Show("Registration successful");

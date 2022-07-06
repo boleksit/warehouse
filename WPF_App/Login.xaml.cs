@@ -18,6 +18,7 @@ public partial class Login : Page
 
         
         Globals.LoggedInUserToken = await WebApi.AuthenticateUser(email, password);
+        Globals.LoggedInUserEmail = email;
         if (Globals.LoggedInUserToken == null)
         {
             MessageBox.Show("Invalid username or password");

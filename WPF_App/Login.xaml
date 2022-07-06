@@ -7,12 +7,12 @@
       mc:Ignorable="d"
       Title="Login" Height="450" Width="700">
     <Grid >
-        <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="500">
+        <StackPanel HorizontalAlignment="Center" Width="500" Margin="0 ,30">
             <TextBlock Text="Welcome to Warehouse" HorizontalAlignment="Center" FontSize="36" />
             <TextBlock Text="Email:" Margin="0,5,0,0" Width="300" />
-            <TextBox x:Name="tbxEmail" Padding="5" Width="300" />
+            <TextBox x:Name="tbxEmail" Padding="5" Width="300" Text="admin@test.com"/>
             <TextBlock Text="Password:" Margin="0,5,0,0" Width="300" />
-            <PasswordBox x:Name="pbxPassword" Padding="5" Width="300" />
+            <PasswordBox x:Name="pbxPassword" Padding="5" Width="300" Password="admin!"/>
             <Button x:Name="btnLogin" Content="LOGIN" Padding="5" Margin="0,5,0,0" Click="btnLogin_Click" Width="300" />
             <Button x:Name="btnRegister" Content="REGISTER" Padding="5" Margin="0,5,0,0" Click="btnRegister_Click" Width="300" />
         </StackPanel>

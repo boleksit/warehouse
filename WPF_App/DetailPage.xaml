@@ -5,8 +5,25 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:WPF_App"
       mc:Ignorable="d"
-      Title="DetailPage" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+      Title="DetailPage" Height="450" Width="700">
+    <StackPanel>
+        <TextBlock  x:Name="tbLoggedInAs" HorizontalAlignment="Center" Margin="0 ,30, 0,0" FontSize="15"/>
+        <Button x:Name="btnGetPackages" HorizontalAlignment="Center" Content="Get packages" Width="150" Margin="0,10 " Click="BtnGetPackages_OnClick"/>
+        <DataGrid Name="dgBoxes" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Box Id" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status.Name}" />
+                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}" />
+                <DataGridTextColumn Header="Height" Binding="{Binding Height}" />
+                <DataGridTextColumn Header="Width" Binding="{Binding Width}" />
+                <DataGridTextColumn Header="Length" Binding="{Binding Length}" />
+                <DataGridTextColumn Header="Recipient" Binding="{Binding Address.Name}" />
+                <DataGridTextColumn Header="Street" Binding="{Binding Address.Street}" />
+                <DataGridTextColumn Header="Building" Binding="{Binding Address.ApartmentNo}" />
+                <DataGridTextColumn Header="City" Binding="{Binding Address.City}" />
+                <DataGridTextColumn Header="PostalCode" Binding="{Binding Address.PostalCode}" />
+                <DataGridTextColumn Header="Phone" Binding="{Binding Address.Phone}" />
+                </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
 </Page>
