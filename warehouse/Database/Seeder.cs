@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using warehouse.Entities;
 
 namespace warehouse.Database;
@@ -6,14 +7,16 @@ namespace warehouse.Database;
 public class Seeder
 {
     private readonly AppDbContext _dbContext;
+    private readonly IPasswordHasher<UserEntity> _passwordHasher;
 
-    public Seeder(AppDbContext dbContext)
+    public Seeder(AppDbContext dbContext, IPasswordHasher<UserEntity> passwordHasher)
     {
         _dbContext = dbContext;
+        _passwordHasher = passwordHasher;
     }
     public  void Seed()
     {
-        System.Console.WriteLine("Appling migrations..");
+        Console.WriteLine("Appling migrations..");
         _dbContext.Database.Migrate();
         if (!_dbContext.Database.CanConnect()) return;
         if (!_dbContext.Status.Any())
@@ -29,6 +32,16 @@ public class Seeder
         if (!_dbContext.Roles.Any())
         {
             _dbContext.Roles.AddRange(GetRoles());
+            _dbContext.SaveChanges();
+        }
+        if (!_dbContext.Boxes.Any())
+        {
+            _dbContext.Boxes.AddRange(GetBoxes());
+            _dbContext.SaveChanges();
+        }
+        if (!_dbContext.Users.Any())
+        {
+            _dbContext.Users.AddRange(GetUsers());
             _dbContext.SaveChanges();
         }
         
@@ -86,22 +99,48 @@ public class Seeder
                 Email = "biuro@client.pl",
                 Name = "Janusz Kowalski",
                 Phone = "888888888",
-               
-                Boxes = new List<BoxEntity>()
-                {
-                    new()
-                    {
-                        ClientId = 1,
-                        Height = 60,
-                        Width = 40,
-                        Length = 50,
-                        Weight = 31,
-                        StatusId = 1
-                    }
-                }
+                
             }
         };
         return clients;
+    }
+
+    private IEnumerable<BoxEntity> GetBoxes()
+    {
+        var boxes = new List<BoxEntity>()
+        {
+            new()
+            {
+                ClientId = 1,
+                AddressId = 1,
+                Height = 60,
+                Width = 40,
+                Length = 50,
+                Weight = 31,
+                StatusId = 1
+            },
+            new()
+            {
+                ClientId = 1,
+                AddressId = 2,
+                Height = 80,
+                Width = 20,
+                Length = 15,
+                Weight = 18,
+                StatusId = 2
+            },
+            new()
+            {
+                ClientId = 1,
+                AddressId = 1,
+                Height = 200,
+                Width = 10,
+                Length = 10,
+                Weight = 1,
+                StatusId = 3
+            }
+        };
+        return boxes;
     }
     private IEnumerable<StatusEntity> GetStatus()
     {
@@ -114,6 +153,19 @@ public class Seeder
         };
         return statuses;
     }
-
+    
+    private IEnumerable<UserEntity> GetUsers()
+    {
+        var users = new List<UserEntity>();
+        var user = new UserEntity()
+        {
+            Email = "admin@test.com",
+            Name = "Admin",
+            RoleId = 1
+        };
+        user.PasswordHash=_passwordHasher.HashPassword(user, "admin!");
+        users.Add(user);
+        return users;
+    }
     
 }
