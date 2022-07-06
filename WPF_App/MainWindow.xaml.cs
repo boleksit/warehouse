@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using WPF_App.Models;
 
 namespace WPF_App
 {
@@ -13,9 +14,22 @@ namespace WPF_App
             mainFrame.Content=new Package();
         }
 
-        private void ButtoClick(object sender, RoutedEventArgs e)
+        private void bntPackageStatus_OnClick(object sender, RoutedEventArgs e)
         {
-            mainFrame.Content = new Package();
+            mainFrame.Content=new Package();
+        }
+
+        private void bntLogin_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(Globals.LoggedInUserEmail!=null) mainFrame.Content=new DetailPage();
+            else mainFrame.Content=new Login();
+        }
+
+        private void bntDetailPage_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(Globals.LoggedInUserEmail==null) mainFrame.Content=new Login();
+            else mainFrame.Content=new DetailPage();
+
         }
     }
 }

@@ -12,14 +12,15 @@ public static class WebApi
 {
     private static string baseUrl = "http://localhost/api";
     
-    public static async Task<string> GetPackageByIdAsync(string id)
+    public static async Task<List<Box>> GetGetPackageByIdAsync(string id)
     {
         string result;
         using HttpClient client = new HttpClient();
         var response = await client.GetAsync($"{baseUrl}/package/{id}");
 
         result = await response.Content.ReadAsStringAsync();
-        return result;
+        return new List<Box>{JsonConvert.DeserializeObject<Box>(result)}; 
+
     }
 
     public static async Task<List<Box>> GetAllPackages()
@@ -28,7 +29,7 @@ public static class WebApi
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Globals.LoggedInUserToken);
         var response = await client.GetAsync($"{baseUrl}/package");
         var result = await response.Content.ReadAsStringAsync();
-        return JsonConvert.DeserializeObject<List<Box>>(result); 
+        return JsonConvert.DeserializeObject<List<Box>>(result);
     }
 
     public static async Task<string?> AuthenticateUser(string email, string password)

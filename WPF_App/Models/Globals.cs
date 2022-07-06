@@ -2,6 +2,6 @@
 
 public class Globals
 {
-    public static string LoggedInUserToken { get; set; }
-    public static string LoggedInUserEmail { get; set; }
+    public static string? LoggedInUserToken { get; set; } = null;
+    public static string? LoggedInUserEmail { get; set; } = null;
 }

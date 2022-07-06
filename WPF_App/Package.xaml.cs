@@ -12,7 +12,8 @@ public partial class Package : Page
 
     private async void ButtonGetPackage_Click(object sender, RoutedEventArgs e)
     {
-        //result.Text = await WebApi.GetPackageByIdAsync(packageId.Text);
+        var dgData = await WebApi.GetGetPackageByIdAsync(packageId.Text);
+        dgBoxes.ItemsSource = dgData;
     }
 
     private void btnLoginOnClick(object sender, RoutedEventArgs e)

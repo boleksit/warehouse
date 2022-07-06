@@ -25,7 +25,7 @@ public partial class Login : Page
             return;
         }
         
-        MessageBox.Show("Login successful");
+        //MessageBox.Show("Login successful");
         NavigationService.Navigate(new DetailPage());
     }
 

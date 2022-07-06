@@ -6,7 +6,14 @@
         xmlns:local="clr-namespace:WPF_App"
         mc:Ignorable="d" FontSize="18" FontFamily="Se"
         Title="Warehouse" Height="450" Width="700">
-    <Frame x:Name="mainFrame">
+    <StackPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Package status" Click="bntPackageStatus_OnClick"/>
+            <MenuItem Header="Login" Click="bntLogin_OnClick"/>
+            <MenuItem Header="DetailPage" Click="bntDetailPage_OnClick"/>
+        </Menu>
+        <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden" Panel.ZIndex="1" >
         
     </Frame>
+    </StackPanel>
 </Window>

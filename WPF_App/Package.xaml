@@ -6,27 +6,43 @@
       xmlns:local="clr-namespace:WPF_App"
       mc:Ignorable="d"
       Title="package" Height="450" Width="700">
-    
-    <Grid>
-        <Grid.ColumnDefinitions >
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <Button Grid.Column="2" Grid.Row="1" Content="Login" FontSize="25" Margin="10 10" x:Name="btnLogin" Click="btnLoginOnClick"/>
-        <Label Grid.Row="2" Grid.Column="1" FontSize="25" Content="ID paczki:" 
-               VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-               VerticalContentAlignment="Center"/>
-        <TextBox Grid.Column="2" Grid.Row="2" FontSize="25" Width="250" Margin="10 10" 
-                 VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-                 VerticalContentAlignment="Center" x:Name="packageId"/>
-        <Button Grid.Column="3" Grid.Row="2"  HorizontalAlignment="Center" Margin="10 10" 
-                Click="ButtonGetPackage_Click" Content="Sprawdź status" Width="200" FontSize="25" /> 
-    </Grid>
+    <StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="2" Grid.Column="1" FontSize="25" Content="ID paczki:" 
+                   VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                   VerticalContentAlignment="Center"/>
+            <TextBox Grid.Column="2" Grid.Row="2" FontSize="25" Width="250" Margin="10 10" 
+                     VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
+                     VerticalContentAlignment="Center" x:Name="packageId"/>
+            <Button Grid.Column="3" Grid.Row="2"  HorizontalAlignment="Center" Margin="10 10" 
+                    Click="ButtonGetPackage_Click" Content="Sprawdź status" Width="200" FontSize="25" /> 
+        </Grid>
+        <DataGrid Name="dgBoxes" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Box Id" Binding="{Binding Id}" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status.Name}" />
+                <DataGridTextColumn Header="Weight" Binding="{Binding Weight}" />
+                <DataGridTextColumn Header="Height" Binding="{Binding Height}" />
+                <DataGridTextColumn Header="Width" Binding="{Binding Width}" />
+                <DataGridTextColumn Header="Length" Binding="{Binding Length}" />
+                <DataGridTextColumn Header="Recipient" Binding="{Binding Address.Name}" />
+                <DataGridTextColumn Header="Street" Binding="{Binding Address.Street}" />
+                <DataGridTextColumn Header="Building" Binding="{Binding Address.ApartmentNo}" />
+                <DataGridTextColumn Header="City" Binding="{Binding Address.City}" />
+                <DataGridTextColumn Header="PostalCode" Binding="{Binding Address.PostalCode}" />
+                <DataGridTextColumn Header="Phone" Binding="{Binding Address.Phone}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        </StackPanel>
 </Page>
