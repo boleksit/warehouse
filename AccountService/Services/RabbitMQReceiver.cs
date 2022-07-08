@@ -25,9 +25,25 @@ public class RabbitMQReceiver : BackgroundService
         _sp = sp;
             
         _factory = new ConnectionFactory() { Uri = new Uri("amqp://guest:guest@host.docker.internal:5672/") };
-            
-        _connection = _factory.CreateConnection();
-            
+        bool isConnected = false;
+        Console.WriteLine("Connecting to RabbitMQ...");
+        while (!isConnected)
+        {
+            try
+            {
+                _connection = _factory.CreateConnection();
+            }
+            catch (Exception)
+            {
+                Thread.Sleep(2000);
+                Console.WriteLine("Reconnecting...");
+                continue;
+            }
+
+            isConnected = true;
+
+        }
+
         _channel = _connection.CreateModel();
             
         _channel.QueueDeclare(
