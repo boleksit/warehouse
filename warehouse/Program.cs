@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using warehouse.Create;
 using warehouse.Database;
 using warehouse.Entities;
@@ -52,7 +53,30 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Scheme = "bearer",
+        Description = "Please insert JWT token into field"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        { 
+            new OpenApiSecurityScheme 
+            { 
+                Reference = new OpenApiReference 
+                { 
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer" 
+                } 
+            },
+            new string[] { } 
+        } 
+    });
+});
 
 var app = builder.Build();
 
