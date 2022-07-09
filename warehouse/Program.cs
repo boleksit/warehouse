@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using System.Xml.XPath;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -76,6 +77,9 @@ builder.Services.AddSwaggerGen(c =>
             new string[] { } 
         } 
     });
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 var app = builder.Build();
@@ -96,3 +100,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
