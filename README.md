@@ -64,4 +64,8 @@ Dokumentacja dostępnych endpointów znajduje się w module Swagger dostępnym p
 ```
 http://localhost/swagger
 ```
-
+Utworzony został domyślnie użytkownik w roli administratora.
+```
+email: admin@test.com
+password: admin!
+```
