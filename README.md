@@ -12,10 +12,8 @@
 
 
 ## Opis Projektu
-Oprogramowanie służy do obsługi magazynu. Pozwala ewidencjonować paczki, 
-łączyć je w palety, śledzić i zmieniać status. Zaimplementowano mechanizm
-autentykacji oraz autoryzacji na podstawie ról użytkowników. Umożliwia tworzenie 
-nowych użytkowników oraz logowanie.
+Oprogramowanie służy do obsługi magazynu. Komunikacja realizowana jest poprzez zapytania HTTP przy użyciu interfejsu REST API. Pozwala ewidencjonować paczki, łączyć je w palety, śledzić i zmieniać status. Ponadto istnieje możliwość zarządzania klientami  oraz adresami wysyłkowymi. Wszystkie wspomniane funkcjonalności posiadają możliwość tworzenia, listowania, edytowania oraz kasowania. Zaimplementowano mechanizm
+autentykacji oraz autoryzacji na podstawie ról użytkowników. Aplikacja umożliwia tworzenie nowych użytkowników oraz logowanie.
 
 
 ## Architektura
